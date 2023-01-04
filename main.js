@@ -13,6 +13,18 @@ const mockUpStrand = () => {
   return newStrand;
 };
 
+// Factory function
+const pAequorFactory = (num, arr) => {
+  return {
+    specimenNum : num,
+    dna : arr
+  }
+  
+};
+
+//Test
+console.log(pAequorFactory(1, mockUpStrand())); // Should return {specimenNum: 1,  dna: ['A', 'C', 'T', 'G','T', 'T', 'T', 'G', 'A', 'G', 'G', 'G', 'T', 'T', 'A']}
+
 
 
 
