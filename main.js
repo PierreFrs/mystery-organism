@@ -14,21 +14,33 @@ const mockUpStrand = () => {
 };
 
 // Factory function
-const pAequorFactory = (num, arr) => {
+const pAequorFactory = (specimenNum, dna) => {
   return {
-    specimenNum : num,
-    dna : arr
+    specimenNum,
+    dna,
+    mutate() {
+      const randIndex = Math.floor(Math.random() * this.dna.length);
+      let newBase = returnRandBase();
+      while (this.dna[randIndex] === newBase) {
+        newBase = returnRandBase();
+      }
+      this.dna[randIndex] = newBase;
+      return this.dna;
+    },
+    compareDNA(otherOrg) {
+      const similarities = this.dna.reduce((acc, curr, idx, arr) => {
+        if (arr[idx] === otherOrg.dna[idx]) {
+          return acc + 1;
+        } else {
+          return acc;
+        }
+      }, 0);
+      const percentOfDNAShared = (similarities / this.dna.length) * 100;
+      const percentageTo2Deci = percentOfDNAShared.toFixed(2);
+      console.log(`${this.specimenNum} and ${otherOrg.specimenNum} have ${percentageTo2Deci}% DNA in common`);
+    }
   }
-  
 };
 
 //Test
-console.log(pAequorFactory(1, mockUpStrand())); // Should return {specimenNum: 1,  dna: ['A', 'C', 'T', 'G','T', 'T', 'T', 'G', 'A', 'G', 'G', 'G', 'T', 'T', 'A']}
-
-
-
-
-
-
-
-
+console.log(pAequorFactory(1, mockUpStrand()));
